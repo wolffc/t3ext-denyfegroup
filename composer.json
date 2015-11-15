@@ -1,0 +1,24 @@
+{
+  "name": "b13/denyfegroup",
+  "type": "typo3-cms-extension",
+  "version": "2.0.0",
+  "description": "Explicitly denies a page or content to a certain usergroup.",
+  "homepage": "https://github.com/b13/t3ext-denyfegroup",
+  "license": ["GPL"],
+  "keywords": ["TYPO3 CMS", "Deny group access"],
+  "support": {
+    "issues": "https://github.com/b13/t3ext-denyfegroup/issues"
+  },
+  "require": {
+    "typo3/cms-core": ">=6.2.0,<8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "B13\\DenyFeGroup\\": "Classes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+    }
+  }
+}

@@ -4,14 +4,14 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-// add hook for the enable columns for custom records using t3lib_pageSelect
-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_page.php']['addEnableColumns']['denyfegroup'] = 'EXT:denyfegroup/Classes/Main.php:&tx_denyfegroup_main->addEnableColumn';
+// Add deny check to page repository (actual page request)
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_page.php']['getPage']['denyfegroup'] = 'EXT:denyfegroup/Classes/PageRepositoryGetPage.php:B13\DenyFeGroup\PageRepositoryGetPage';
 
-// fix the query for page tables
-$TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['determineId-PostProc']['denyfegroup'] = 'EXT:denyfegroup/Classes/Main.php:&tx_denyfegroup_main->determineIdPostProc';
+// Add check to rootline (to respect "Extend to subpages" option)
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_checkEnableFields']['denyfegroup'] = 'EXT:denyfegroup/Classes/GroupAccess.php:B13\DenyFeGroup\GroupAccess->checkEnableFields';
 
-	// we need to XCLASS tslib_fe as the group check is in there as well
-$TYPO3_CONF_VARS['FE']['XCLASS']['tslib/class.tslib_fe.php'] = t3lib_extMgm::extPath('denyfegroup', 'Classes/Tsfe.php');
+// Add check to content elements / menus via enable columns SQL
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_page.php']['addEnableColumns']['denyfegroup'] = 'EXT:denyfegroup/Classes/GroupAccess.php:B13\DenyFeGroup\GroupAccess->addEnableColumn';
 
 
-$TYPO3_CONF_VARS['FE']['addRootLineFields'] .= ',fe_group_deny';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ',fe_group_deny';
