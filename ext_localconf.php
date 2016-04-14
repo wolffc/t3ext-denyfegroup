@@ -16,3 +16,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_page.php']['addEnab
 
 
 $GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ',fe_group_deny';
+
+// Add backend footer info for content elements
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawFooter'][] = \B13\DenyFeGroup\PageLayoutViewDrawFooter::class;
