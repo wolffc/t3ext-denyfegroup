@@ -58,7 +58,7 @@ class GroupAccess extends AbstractGroupAccess
     public function addEnableColumn(&$params, $parentObject)
     {
         $sql = '';
-        if ($params['table'] == 'pages' || $params['table'] == 'tt_content') {
+        if (in_array($params['table'], $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['denyfegroup']['tables'])) {
             $usergroups = $this->getUsergroups();
             if (count($usergroups)) {
                 $sql = $this->getMultipleGroupsWhereClause($this->fieldName, $params['table']);

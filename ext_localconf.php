@@ -8,6 +8,20 @@ if (!defined('TYPO3_MODE')) {
 // disabled for now for performance reasons
 //$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_page.php']['getPage']['denyfegroup'] = 'EXT:denyfegroup/Classes/PageRepositoryGetPage.php:B13\DenyFeGroup\PageRepositoryGetPage';
 
+if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['denyfegroup'])) {
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['denyfegroup'] = [];
+}
+
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['denyfegroup'] = array_merge_recursive(
+	[
+		'tables' => [
+			'pages',
+			'tt_content',
+		]
+	],
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['denyfegroup']
+);
+
 // Add check to rootline (to respect "Extend to subpages" option)
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_checkEnableFields']['denyfegroup'] = 'EXT:denyfegroup/Classes/GroupAccess.php:B13\DenyFeGroup\GroupAccess->checkEnableFields';
 
